@@ -6,8 +6,29 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="8.1.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.1.1" />
+    <PackageReference Include="FluentValidation" Version="8.4.0" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="8.4.0" />
+    <PackageReference Include="MediatR" Version="7.0.0" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
+    <PackageReference Include="MicroElements.Swashbuckle.FluentValidation" Version="2.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="4.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Holistory.Api.DataTranserObjects\Holistory.Api.DataTranserObjects.csproj" />
+    <ProjectReference Include="..\Holistory.Api.DomainEventHandler\Holistory.Api.DomainEventHandlers.csproj" />
+    <ProjectReference Include="..\Holistory.Api.Queries\Holistory.Api.Queries.csproj" />
+    <ProjectReference Include="..\Holistory.Common\Holistory.Common.csproj" />
+    <ProjectReference Include="..\Holistory.Infrastructure.Sql\Holistory.Infrastructure.Sql.csproj" />
+    <ProjectReference Include="..\Holistory.Queries.Interfaces\Holistory.Queries.Interfaces.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Application\Profiles\" />
   </ItemGroup>
 
 </Project>

@@ -5,6 +5,28 @@ VisualStudioVersion = 15.0.28307.572
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Holistory.Api", "Holistory.Api\Holistory.Api.csproj", "{8B73534B-4496-4EAA-8650-414F33395858}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{EA64481C-49C6-4CE0-AD6F-9638990CC8B2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{6EEAF469-93FA-4419-BCC8-5B6FA3FC77CD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{BE42FD39-5960-4082-8F3D-2A484CA72EA0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Holistory.Domain", "Holistory.Domain\Holistory.Domain.csproj", "{815D0E75-7E6A-4FFE-91DB-5F6052ECF514}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Holistory.Infrastructure.Sql", "Holistory.Infrastructure.Sql\Holistory.Infrastructure.Sql.csproj", "{D9929CE1-2768-4FB9-974A-0E3525C55F65}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Holistory.Api.DataTranserObjects", "Holistory.Api.DataTranserObjects\Holistory.Api.DataTranserObjects.csproj", "{9CECF1E6-DF0F-44A7-8351-050F57033220}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Holistory.Api.DomainEventHandlers", "Holistory.Api.DomainEventHandler\Holistory.Api.DomainEventHandlers.csproj", "{DA019DEC-969A-452F-95F8-BD0EBF353015}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Holistory.Api.Queries", "Holistory.Api.Queries\Holistory.Api.Queries.csproj", "{EC69FBD0-854C-4FAD-A628-EBB45F4027C4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Holistory.Queries.Interfaces", "Holistory.Queries.Interfaces\Holistory.Queries.Interfaces.csproj", "{E83CC8DF-4E88-4397-B650-19D84F8CDCE9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{E60607B1-704A-4A4A-8EE7-023458133E31}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Holistory.Common", "Holistory.Common\Holistory.Common.csproj", "{00917B6C-A0E7-4A45-99A4-925F2CB0310D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,9 +37,47 @@ Global
 		{8B73534B-4496-4EAA-8650-414F33395858}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B73534B-4496-4EAA-8650-414F33395858}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B73534B-4496-4EAA-8650-414F33395858}.Release|Any CPU.Build.0 = Release|Any CPU
+		{815D0E75-7E6A-4FFE-91DB-5F6052ECF514}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{815D0E75-7E6A-4FFE-91DB-5F6052ECF514}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{815D0E75-7E6A-4FFE-91DB-5F6052ECF514}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{815D0E75-7E6A-4FFE-91DB-5F6052ECF514}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9929CE1-2768-4FB9-974A-0E3525C55F65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9929CE1-2768-4FB9-974A-0E3525C55F65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9929CE1-2768-4FB9-974A-0E3525C55F65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9929CE1-2768-4FB9-974A-0E3525C55F65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9CECF1E6-DF0F-44A7-8351-050F57033220}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9CECF1E6-DF0F-44A7-8351-050F57033220}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9CECF1E6-DF0F-44A7-8351-050F57033220}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9CECF1E6-DF0F-44A7-8351-050F57033220}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA019DEC-969A-452F-95F8-BD0EBF353015}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA019DEC-969A-452F-95F8-BD0EBF353015}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA019DEC-969A-452F-95F8-BD0EBF353015}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA019DEC-969A-452F-95F8-BD0EBF353015}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC69FBD0-854C-4FAD-A628-EBB45F4027C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC69FBD0-854C-4FAD-A628-EBB45F4027C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC69FBD0-854C-4FAD-A628-EBB45F4027C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC69FBD0-854C-4FAD-A628-EBB45F4027C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E83CC8DF-4E88-4397-B650-19D84F8CDCE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E83CC8DF-4E88-4397-B650-19D84F8CDCE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E83CC8DF-4E88-4397-B650-19D84F8CDCE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E83CC8DF-4E88-4397-B650-19D84F8CDCE9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00917B6C-A0E7-4A45-99A4-925F2CB0310D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00917B6C-A0E7-4A45-99A4-925F2CB0310D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00917B6C-A0E7-4A45-99A4-925F2CB0310D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00917B6C-A0E7-4A45-99A4-925F2CB0310D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8B73534B-4496-4EAA-8650-414F33395858} = {6EEAF469-93FA-4419-BCC8-5B6FA3FC77CD}
+		{815D0E75-7E6A-4FFE-91DB-5F6052ECF514} = {EA64481C-49C6-4CE0-AD6F-9638990CC8B2}
+		{D9929CE1-2768-4FB9-974A-0E3525C55F65} = {BE42FD39-5960-4082-8F3D-2A484CA72EA0}
+		{9CECF1E6-DF0F-44A7-8351-050F57033220} = {6EEAF469-93FA-4419-BCC8-5B6FA3FC77CD}
+		{DA019DEC-969A-452F-95F8-BD0EBF353015} = {6EEAF469-93FA-4419-BCC8-5B6FA3FC77CD}
+		{EC69FBD0-854C-4FAD-A628-EBB45F4027C4} = {6EEAF469-93FA-4419-BCC8-5B6FA3FC77CD}
+		{E83CC8DF-4E88-4397-B650-19D84F8CDCE9} = {6EEAF469-93FA-4419-BCC8-5B6FA3FC77CD}
+		{00917B6C-A0E7-4A45-99A4-925F2CB0310D} = {E60607B1-704A-4A4A-8EE7-023458133E31}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7635FC50-B454-40AA-9538-2AADFA6554A9}
