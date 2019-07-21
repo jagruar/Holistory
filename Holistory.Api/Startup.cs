@@ -1,24 +1,32 @@
 ﻿using AutoMapper;
-using MediatR;
 using FluentValidation.AspNetCore;
+using Holistory.Api.Application.MiddleWare;
+using Holistory.Api.Application.PipelineBehaviours;
+using Holistory.Api.Queries;
+using Holistory.Api.Queries.Interfaces;
+using Holistory.Api.Services.IdentityService;
+using Holistory.Common.Configuration;
+using Holistory.Common.Constants;
+using Holistory.Common.Services;
+using Holistory.Domain.Aggregates.TopicAggregate;
+using Holistory.Domain.Aggregates.UserAggregate;
+using Holistory.Infrastructure.Sql;
+using Holistory.Infrastructure.Sql.Repositories;
+using Holistory.Interfaces;
+using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
-using System.IO;
 using System.Reflection;
-using Holistory.Infrastructure.Sql;
-using Microsoft.EntityFrameworkCore;
-using Holistory.Domain.Aggregates.AccountAggregate;
-using Holistory.Infrastructure.Sql.Repositories;
-using Holistory.Domain.Aggregates.TopicAggregate;
-using Holistory.Api.Application.PipelineBehaviours;
-using Holistory.Api.Application.MiddleWare;
-using Microsoft.AspNetCore.Identity;
+using System.Text;
 
 namespace Holistory.Api
 {
@@ -102,8 +110,47 @@ namespace Holistory.Api
                     RequireUppercase = false
                 };
             })
+            .AddRoleManager<RoleManager<IdentityRole>>()
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultTokenProviders();
+
+            // Add configuration options
+            services.Configure<JwtOptions>(Configuration.GetSection("JwtOptions"));
+
+            // Add authorization policies
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy(IdentityRoles.Admin, policy =>
+                    policy.RequireRole(IdentityRoles.Admin));
+
+                options.AddPolicy(IdentityRoles.User, policy =>
+                    policy.RequireRole(IdentityRoles.User));
+            });
+
+            // Add JWT bearer authentication
+            JwtOptions jwtOptions = Configuration.GetSection("JwtOptions").Get<JwtOptions>();
+
+            services
+                .AddAuthentication(x =>
+                {
+                    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
+                .AddJwtBearer(x =>
+                {
+                    x.RequireHttpsMetadata = !HostingEnvironment.IsDevelopment();
+                    x.SaveToken = true;
+                    x.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.SigningKey)),
+                        ValidateIssuer = true,
+                        ValidIssuer = jwtOptions.Issuer,
+                        ValidateAudience = true,
+                        ValidAudience = jwtOptions.Audience,
+                        ValidateLifetime = true
+                    };
+                });
 
             ConfigureDependencyInjection(services);
         }
@@ -121,14 +168,24 @@ namespace Holistory.Api
             });
 
             app.UseHttpsRedirection();
+            app.UseAuthentication();
             app.UseMvc();
         }
 
         private void ConfigureDependencyInjection(IServiceCollection services)
         {
-            services.AddScoped<IAccountRepository, AccountRepository>();
+            // queries
+            services.AddScoped<ITopicQueries, TopicQueries>();
+
+            // repositories
+            services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ITopicRepository, TopicRepository>();
 
+            // services
+            services.AddScoped<IConnectionProvider, SqlServerConnectionProvider>();
+            services.AddScoped<IIdentityService, IdentityService>();
+
+            // pipelines
             // services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidatorBehavior<,>));
             services.AddScoped(typeof(IPipelineBehavior<,>), typeof(SqlTransactionBehaviour<,>));
         }

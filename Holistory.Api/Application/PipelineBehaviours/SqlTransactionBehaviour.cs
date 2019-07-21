@@ -45,7 +45,7 @@ namespace Holistory.Api.Application.PipelineBehaviours
 
                 return response;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }

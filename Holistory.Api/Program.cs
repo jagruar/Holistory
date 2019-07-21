@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Holistory.Api.Application.Data;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
+using System.Threading.Tasks;
 
 namespace Holistory.Api
 {
@@ -14,7 +9,10 @@ namespace Holistory.Api
     {
         public static void Main(string[] args)
         {
-            CreateWebHostBuilder(args).Build().Run();
+            IWebHost host = CreateWebHostBuilder(args).Build();
+            Task.Run(async () => await IdentityDataSeed.Seed(host.Services, "admin", "Password1!")).Wait();
+
+            host.Run();
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>

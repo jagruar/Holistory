@@ -1,4 +1,4 @@
-﻿using Holistory.Domain.Aggregates.AccountAggregate;
+﻿using Holistory.Domain.Aggregates.UserAggregate;
 using Holistory.Domain.Aggregates.TopicAggregate;
 using Holistory.Domain.Seedwork;
 using Holistory.Infrastructure.Sql.Extensions;
@@ -33,7 +33,6 @@ namespace Holistory.Infrastructure.Sql
         {
         }
 
-        public DbSet<Account> Account { get; set; }
         public DbSet<Topic> Topic { get; set; }
 
         public bool HasActiveTransaction => CurrentTransaction != null;

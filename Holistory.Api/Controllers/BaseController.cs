@@ -1,4 +1,5 @@
 ﻿using FluentValidation.Results;
+using Holistory.Api.Services.IdentityService;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -13,9 +14,11 @@ namespace Holistory.Api.Controllers
         public const string ID_MUST_MATCH_COMMAND = "The request route ID must must match the command resource ID.";
 
         protected readonly IMediator _Mediator;
+        protected readonly IIdentityService _IdentityService;
 
-        public BaseController(IMediator mediator)
+        public BaseController(IMediator mediator, IIdentityService identityService)
         {
+            _IdentityService = identityService;
             _Mediator = mediator;
         }
 

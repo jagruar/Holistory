@@ -14,7 +14,7 @@ namespace Holistory.Common.Exceptions
         {
             if (valueToValidate == null)
             {
-                throw new NotFoundException(valueName);
+                throw new NotFoundException($"Item of type {valueName} can not be found");
             }
         }
     }

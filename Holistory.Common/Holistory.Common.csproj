@@ -6,6 +6,12 @@
 
   <ItemGroup>
     <PackageReference Include="FluentValidation" Version="8.4.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.2.0" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.6.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Holistory.Interfaces\Holistory.Interfaces.csproj" />
   </ItemGroup>
 
 </Project>

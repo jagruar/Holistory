@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 namespace Holistory.Api.Application.Commands.Portal.Users.CreateUserCommand
 {
     [DataContract]
-    public class CreateUserCommand : IRequest<int>
+    public class CreateUserCommand : IRequest<string>
     {
         [DataMember]
         public string Username { get; private set; }

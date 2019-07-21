@@ -19,99 +19,6 @@ namespace Holistory.Infrastructure.Sql.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Holistory.Domain.Aggregates.AccountAggregate.Account", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("UserId");
-
-                    b.Property<DateTime?>("UtcDateDeleted");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Account");
-                });
-
-            modelBuilder.Entity("Holistory.Domain.Aggregates.AccountAggregate.AccountTopic", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("AccountId");
-
-                    b.Property<int>("Correct");
-
-                    b.Property<DateTime>("DateTaken");
-
-                    b.Property<int>("Incorrect");
-
-                    b.Property<int>("TopicId");
-
-                    b.Property<DateTime?>("UtcDateDeleted");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AccountId");
-
-                    b.HasIndex("TopicId");
-
-                    b.ToTable("AccountTopic");
-                });
-
-            modelBuilder.Entity("Holistory.Domain.Aggregates.AccountAggregate.User", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("AccessFailedCount");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken();
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(256);
-
-                    b.Property<bool>("EmailConfirmed");
-
-                    b.Property<bool>("LockoutEnabled");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256);
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(256);
-
-                    b.Property<string>("PasswordHash");
-
-                    b.Property<string>("PhoneNumber");
-
-                    b.Property<bool>("PhoneNumberConfirmed");
-
-                    b.Property<string>("SecurityStamp");
-
-                    b.Property<bool>("TwoFactorEnabled");
-
-                    b.Property<string>("UserName")
-                        .HasMaxLength(256);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedEmail")
-                        .HasName("EmailIndex");
-
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasName("UserNameIndex")
-                        .HasFilter("[NormalizedUserName] IS NOT NULL");
-
-                    b.ToTable("AspNetUsers");
-                });
-
             modelBuilder.Entity("Holistory.Domain.Aggregates.TopicAggregate.Answer", b =>
                 {
                     b.Property<int>("Id")
@@ -360,6 +267,85 @@ namespace Holistory.Infrastructure.Sql.Migrations
                     b.ToTable("Topic");
                 });
 
+            modelBuilder.Entity("Holistory.Domain.Aggregates.UserAggregate.Attempt", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Correct");
+
+                    b.Property<DateTime>("DateTaken");
+
+                    b.Property<int>("Incorrect");
+
+                    b.Property<int>("TopicId");
+
+                    b.Property<string>("UserId")
+                        .IsRequired();
+
+                    b.Property<DateTime?>("UtcDateDeleted");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TopicId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Attempt");
+                });
+
+            modelBuilder.Entity("Holistory.Domain.Aggregates.UserAggregate.User", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("AccessFailedCount");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken();
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256);
+
+                    b.Property<bool>("EmailConfirmed");
+
+                    b.Property<bool>("LockoutEnabled");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("PasswordHash");
+
+                    b.Property<string>("PhoneNumber");
+
+                    b.Property<bool>("PhoneNumberConfirmed");
+
+                    b.Property<string>("SecurityStamp");
+
+                    b.Property<bool>("TwoFactorEnabled");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -470,19 +456,6 @@ namespace Holistory.Infrastructure.Sql.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Holistory.Domain.Aggregates.AccountAggregate.AccountTopic", b =>
-                {
-                    b.HasOne("Holistory.Domain.Aggregates.AccountAggregate.Account")
-                        .WithMany("Topics")
-                        .HasForeignKey("AccountId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("Holistory.Domain.Aggregates.TopicAggregate.Topic")
-                        .WithMany()
-                        .HasForeignKey("TopicId")
-                        .OnDelete(DeleteBehavior.Restrict);
-                });
-
             modelBuilder.Entity("Holistory.Domain.Aggregates.TopicAggregate.Answer", b =>
                 {
                     b.HasOne("Holistory.Domain.Aggregates.TopicAggregate.Question")
@@ -529,6 +502,19 @@ namespace Holistory.Infrastructure.Sql.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
+            modelBuilder.Entity("Holistory.Domain.Aggregates.UserAggregate.Attempt", b =>
+                {
+                    b.HasOne("Holistory.Domain.Aggregates.TopicAggregate.Topic")
+                        .WithMany()
+                        .HasForeignKey("TopicId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Holistory.Domain.Aggregates.UserAggregate.User")
+                        .WithMany("Attempts")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
@@ -539,7 +525,7 @@ namespace Holistory.Infrastructure.Sql.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Holistory.Domain.Aggregates.AccountAggregate.User")
+                    b.HasOne("Holistory.Domain.Aggregates.UserAggregate.User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -547,7 +533,7 @@ namespace Holistory.Infrastructure.Sql.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Holistory.Domain.Aggregates.AccountAggregate.User")
+                    b.HasOne("Holistory.Domain.Aggregates.UserAggregate.User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -560,7 +546,7 @@ namespace Holistory.Infrastructure.Sql.Migrations
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Holistory.Domain.Aggregates.AccountAggregate.User")
+                    b.HasOne("Holistory.Domain.Aggregates.UserAggregate.User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -568,7 +554,7 @@ namespace Holistory.Infrastructure.Sql.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Holistory.Domain.Aggregates.AccountAggregate.User")
+                    b.HasOne("Holistory.Domain.Aggregates.UserAggregate.User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
