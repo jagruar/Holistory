@@ -96,7 +96,6 @@ namespace Holistory.Api.Queries
                 foreach (TopicDto topic in topics)
                 {
                     topic.Attempts = attemptLookup[topic.Id];
-                    topic.SetStatus();
                 }
 
                 return topics;

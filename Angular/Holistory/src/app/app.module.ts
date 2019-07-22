@@ -11,6 +11,7 @@ import { JwtInterceptor } from 'src/core/interceptors/jwt.interceptor';
 import { ErrorInterceptor } from 'src/core/interceptors/error.interceptor';
 import { HomeComponent } from './home/home.component';
 import { TopicsComponent } from './topics/topics.component';
+import { WorldComponent } from './world/world.component';
 
 @NgModule({
     imports: [
@@ -23,7 +24,8 @@ import { TopicsComponent } from './topics/topics.component';
         AppComponent,
         HomeComponent,
         LoginComponent,
-        TopicsComponent
+        TopicsComponent,
+        WorldComponent
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

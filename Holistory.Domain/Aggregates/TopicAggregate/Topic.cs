@@ -10,6 +10,7 @@ namespace Holistory.Domain.Aggregates.TopicAggregate
     {
         private readonly List<Event> _events = new List<Event>();
         private readonly List<Question> _questions = new List<Question>();
+        private readonly List<Attempt> _attempts = new List<Attempt>();
 
         private Topic()
         {
@@ -55,6 +56,8 @@ namespace Holistory.Domain.Aggregates.TopicAggregate
 
         public IReadOnlyCollection<Question> Questions => _questions;
 
+        public IReadOnlyCollection<Attempt> Attempts => _attempts;
+
         public Event AddEvent(
             string title,
             string content,
@@ -82,6 +85,13 @@ namespace Holistory.Domain.Aggregates.TopicAggregate
             NotFoundException.ThrowIfNull(question, nameof(question));
             Answer answer = question.AddAnswer(text, isCorrect);
             return answer;
+        }
+
+        public Attempt AddAttempt(string userId, int correct, int incorrect)
+        {
+            Attempt attempt = new Attempt(userId, correct, incorrect);
+            _attempts.Add(attempt);
+            return attempt;
         }
     }
 }

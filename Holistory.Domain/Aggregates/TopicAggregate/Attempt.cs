@@ -1,7 +1,7 @@
 ﻿using Holistory.Domain.Seedwork;
 using System;
 
-namespace Holistory.Domain.Aggregates.UserAggregate
+namespace Holistory.Domain.Aggregates.TopicAggregate
 {
     public class Attempt : Entity
     {
@@ -9,9 +9,9 @@ namespace Holistory.Domain.Aggregates.UserAggregate
         {
         }
 
-        public Attempt(int topicId, int correct, int incorrect)
+        public Attempt(string userId, int correct, int incorrect)
         {
-            TopicId = topicId;
+            UserId = userId;
             DateTaken = DateTime.Now;
             Correct = correct;
             Incorrect = incorrect;

@@ -1,8 +1,8 @@
-﻿using Holistory.Domain.Aggregates.UserAggregate;
-using Holistory.Domain.Aggregates.TopicAggregate;
+﻿using Holistory.Domain.Aggregates.TopicAggregate;
+using Holistory.Domain.Aggregates.UserAggregate;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Holistory.Infrastructure.Sql.EntityConfiguration.Accounts
+namespace Holistory.Infrastructure.Sql.EntityConfiguration.Topics
 {
     public class AttemptConfiguration : EntityConfigurationBase<Attempt>
     {
@@ -10,7 +10,7 @@ namespace Holistory.Infrastructure.Sql.EntityConfiguration.Accounts
         {
             builder.Property(x => x.UserId).IsRequired();
 
-            builder.HasOne<Topic>().WithMany().HasForeignKey(x => x.TopicId);
+            builder.HasOne<User>().WithMany().HasForeignKey(x => x.UserId);
         }
     }
 }

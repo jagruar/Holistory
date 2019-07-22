@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Topic } from 'src/core/models/dtos/topic';
 import { TopicsController } from 'src/core/controllers/topics.controller';
+import { Attempt } from 'src/core/models/dtos/attempt';
 
 @Component({
   selector: 'holistory-topics',
@@ -17,7 +18,7 @@ export class TopicsComponent implements OnInit {
   }
 
   public addAttempt() {
-    this.topicsController.addAttempt(1, 1, 1);
+    this.topicsController.postAttempt(1, 2, 3);
     this.getTopics();
   }
 

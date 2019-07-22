@@ -29,6 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Application\Commands\Accounts\" />
     <Folder Include="Application\Data\" />
   </ItemGroup>
 

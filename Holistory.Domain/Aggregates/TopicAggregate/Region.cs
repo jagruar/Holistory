@@ -19,11 +19,11 @@ namespace Holistory.Domain.Aggregates.TopicAggregate
 
         public static Region SouthAmerica => new Region(5, "South America");
 
-        public static Region Oceania => new Region(6, "South America");
+        public static Region Oceania => new Region(6, "Oceania");
 
-        public static Region EasternAsia => new Region(7, "South America");
+        public static Region EasternAsia => new Region(7, "EasternAsia");
 
-        public static Region SouthernAsia => new Region(8, "Southern Asia");
+        public static Region SouthernAsia => new Region(8, "SouthernAsia");
 
         public static Region NorthernAsia => new Region(9, "Northern Asia");
     }

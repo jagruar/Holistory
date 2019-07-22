@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { AuthenticationService } from '../../core/services/authentication.service';
+import { LoggingService } from 'src/core/services/logging.service';
 
 @Component({ templateUrl: 'login.component.html' })
 export class LoginComponent implements OnInit {
@@ -16,7 +17,8 @@ export class LoginComponent implements OnInit {
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
-        private authenticationService: AuthenticationService
+        private authenticationService: AuthenticationService,
+        private logger: LoggingService
     ) { }
 
     ngOnInit() {
@@ -48,11 +50,12 @@ export class LoginComponent implements OnInit {
             .pipe(first())
             .subscribe(
                 data => {
-                    console.log("data back");
+                    this.logger.log("data back");
                     this.router.navigate([this.returnUrl]);
+                    this.loading = false;
                 },
                 error => {
-                    console.log("error");
+                    this.logger.log("login error");
                     this.error = error;
                     this.loading = false;
                 });              

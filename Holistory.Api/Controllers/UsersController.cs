@@ -1,4 +1,4 @@
-﻿using Holistory.Api.Application.Commands.Accounts.CreateAttempt;
+﻿using Holistory.Api.Application.Commands.Topics.CreateAttempt;
 using Holistory.Api.Application.Commands.Portal.Users.CreateUserCommand;
 using Holistory.Api.Application.Commands.Portal.Users.GenerateAuthTokenCommand;
 using Holistory.Api.Services.IdentityService;
@@ -7,6 +7,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using Holistory.Api.DataTranserObjects;
 
 namespace Holistory.Api.Controllers
 {
@@ -19,19 +20,26 @@ namespace Holistory.Api.Controllers
         {
         }
 
+        [HttpGet]
+        public async Task<ActionResult<string>> GetId()
+        {
+            string id =  _IdentityService.GetCurrentUserId();
+            return Ok(new { id });
+        }
+
         [HttpPost("token")]
         [AllowAnonymous]
-        public async Task<ActionResult<string>> Token([FromBody] GenerateAuthTokenCommand command)
+        public async Task<ActionResult<IdentificationDto>> Token([FromBody] GenerateAuthTokenCommand command)
         {
-            string token = await _Mediator.Send(command);
+            IdentificationDto result = await _Mediator.Send(command);
 
-            if (string.IsNullOrEmpty(token))
+            if (string.IsNullOrEmpty(result.Token))
             {
                 return BadRequest();
             }
             else
             {
-                return Ok(new { token });
+                return Ok(result);
             }
         }
 
@@ -40,19 +48,6 @@ namespace Holistory.Api.Controllers
         public async Task<ActionResult<string>> Post([FromBody] CreateUserCommand command)
         {
             string result = await _Mediator.Send(command);
-            return Ok(result);
-        }
-
-        [HttpPost("attempts")]
-        [Authorize(Policy = IdentityRoles.User)]
-        public async Task<ActionResult<int>> PostAttempt([FromBody] CreateAttemptCommand command)
-        {
-            if (command.UserId != _IdentityService.GetCurrentUserId())
-            {
-                return Forbid();
-            }
-
-            int result = await _Mediator.Send(command);
             return Ok(result);
         }
     }

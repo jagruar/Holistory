@@ -11,12 +11,14 @@ namespace Holistory.Infrastructure.Sql.EntityConfiguration.Topics
         {
             builder.HasMany(x => x.Events).WithOne().HasForeignKey(x => x.TopicId);
             builder.HasMany(x => x.Questions).WithOne().HasForeignKey(x => x.TopicId);
+            builder.HasMany(x => x.Attempts).WithOne().HasForeignKey(x => x.TopicId);
 
             builder.HasOne<Era>().WithMany().HasForeignKey(x => x.EraId);
             builder.HasOne<Region>().WithMany().HasForeignKey(x => x.RegionId);
 
             builder.Metadata.FindNavigation(nameof(Topic.Questions)).SetPropertyAccessMode(PropertyAccessMode.Field);
             builder.Metadata.FindNavigation(nameof(Topic.Events)).SetPropertyAccessMode(PropertyAccessMode.Field);
+            builder.Metadata.FindNavigation(nameof(Topic.Attempts)).SetPropertyAccessMode(PropertyAccessMode.Field);
         }
     }
 }

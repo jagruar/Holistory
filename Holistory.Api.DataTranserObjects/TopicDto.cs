@@ -7,6 +7,10 @@ namespace Holistory.Api.DataTranserObjects
     {
         public int Id { get; set; }
 
+        public string Title { get; set; }
+
+        public string Description { get; set; }
+
         public int EraId { get; set; }
 
         public int RegionId { get; set; }
@@ -16,26 +20,5 @@ namespace Holistory.Api.DataTranserObjects
         public IEnumerable<AttemptDto> Attempts { get; set; }
 
         public IEnumerable<QuestionDto> Questions { get; set; }
-
-        public TopicStatus Status { get; set; }
-
-        public void SetStatus()
-        {
-            if (Attempts.Any())
-            {
-                if (Attempts.Any(x => x.Incorrect == 0))
-                {
-                    Status = TopicStatus.Completed;
-                }
-                else
-                {
-                    Status = TopicStatus.Attempted;
-                }
-            }
-            else
-            {
-                Status = TopicStatus.NotAttempted;
-            }
-        }
     }
 }

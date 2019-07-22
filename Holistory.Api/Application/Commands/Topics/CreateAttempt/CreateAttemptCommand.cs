@@ -1,10 +1,11 @@
-﻿using MediatR;
+﻿using Holistory.Api.DataTranserObjects;
+using MediatR;
 using System.Runtime.Serialization;
 
-namespace Holistory.Api.Application.Commands.Accounts.CreateAttempt
+namespace Holistory.Api.Application.Commands.Topics.CreateAttempt
 {
     [DataContract]
-    public class CreateAttemptCommand : IRequest<int>
+    public class CreateAttemptCommand : IRequest<AttemptDto>
     {
         [DataMember]
         public string UserId { get; private set; }

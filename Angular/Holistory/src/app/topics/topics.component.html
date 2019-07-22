@@ -1,2 +1,11 @@
 <p>topics works!</p>
 <button (click)="addAttempt()">Add Attempt</button>
+
+<div *ngFor="let topic of topics">
+  <p>{{ topic.title }}</p>
+  <div *ngFor="let attempt of topic.attempts">
+    <p>{{ attempt.correct }}</p>
+    <p>{{ attempt.incorrect }}</p>
+    <p>{{ attempt.correct }}</p>
+  </div>
+</div>

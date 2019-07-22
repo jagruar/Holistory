@@ -1,4 +1,5 @@
 ﻿using FluentValidation.Results;
+using Holistory.Api.DataTranserObjects;
 using Holistory.Common.Configuration;
 using Holistory.Common.Constants;
 using Holistory.Common.Exceptions;
@@ -18,7 +19,7 @@ using System.Threading.Tasks;
 
 namespace Holistory.Api.Application.Commands.Portal.Users.GenerateAuthTokenCommand
 {
-    public class GenerateAuthTokenCommandHandler : IRequestHandler<GenerateAuthTokenCommand, string>
+    public class GenerateAuthTokenCommandHandler : IRequestHandler<GenerateAuthTokenCommand, IdentificationDto>
     {
         private readonly UserManager<User> _userManager;
         private readonly JwtOptions _authOptions;
@@ -31,7 +32,7 @@ namespace Holistory.Api.Application.Commands.Portal.Users.GenerateAuthTokenComma
             _authOptions = authOptions.Value;
         }
 
-        public async Task<string> Handle(GenerateAuthTokenCommand request, CancellationToken cancellationToken)
+        public async Task<IdentificationDto> Handle(GenerateAuthTokenCommand request, CancellationToken cancellationToken)
         {
             User user = await _userManager.FindByNameAsync(request.Username);
             
@@ -83,7 +84,9 @@ namespace Holistory.Api.Application.Commands.Portal.Users.GenerateAuthTokenComma
             JwtSecurityTokenHandler jwtTokenHandler = new JwtSecurityTokenHandler();
             JwtSecurityToken jwtToken = jwtTokenHandler.CreateJwtSecurityToken(tokenDescriptor);
 
-            return jwtTokenHandler.WriteToken(jwtToken);
+            string token = jwtTokenHandler.WriteToken(jwtToken);
+
+            return new IdentificationDto(user.Id, token);
         }
     }
 }

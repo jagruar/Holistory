@@ -1,4 +1,5 @@
-﻿using Holistory.Api.Application.Commands.Topics.CreateAnswer;
+﻿using Holistory.Api.Application.Commands.Topics.CreateAttempt;
+using Holistory.Api.Application.Commands.Topics.CreateAnswer;
 using Holistory.Api.Application.Commands.Topics.CreateEvent;
 using Holistory.Api.Application.Commands.Topics.CreateQuestion;
 using Holistory.Api.Application.Commands.Topics.CreateTopic;
@@ -47,7 +48,7 @@ namespace Holistory.Api.Controllers
         public async Task<ActionResult<int>> Post([FromBody] CreateTopicCommand command)
         {
             int result = await _Mediator.Send(command);
-            return Ok(result);
+            return Ok(new { result });
         }
 
         [HttpPost("{id}/questions")]
@@ -60,7 +61,7 @@ namespace Holistory.Api.Controllers
             }
 
             int result = await _Mediator.Send(command);
-            return Ok(result);
+            return Ok(new { result });
         }
 
         [HttpPost("{id}/events")]
@@ -73,7 +74,7 @@ namespace Holistory.Api.Controllers
             }
 
             int result = await _Mediator.Send(command);
-            return Ok(result);
+            return Ok(new { result });
         }
 
         [HttpPost("{topicId}/questions/{questionId}/answers")]
@@ -86,6 +87,24 @@ namespace Holistory.Api.Controllers
             }
 
             int result = await _Mediator.Send(command);
+            return Ok(new { result });
+        }
+
+        [HttpPost("{id}/attempts")]
+        [Authorize(Policy = IdentityRoles.User)]
+        public async Task<ActionResult<AttemptDto>> PostAttempt([FromRoute] int id, [FromBody] CreateAttemptCommand command)
+        {
+            if (id != command.TopicId)
+            {
+                return BadRequestNonMatchingIds();
+            }
+
+            if (command.UserId != _IdentityService.GetCurrentUserId())
+            {
+                return Forbid();
+            }
+
+            AttemptDto result = await _Mediator.Send(command);
             return Ok(result);
         }
     }
