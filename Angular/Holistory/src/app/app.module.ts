@@ -9,9 +9,9 @@ import { routing } from './app.routing';
 import { LoginComponent } from './login';
 import { JwtInterceptor } from 'src/core/interceptors/jwt.interceptor';
 import { ErrorInterceptor } from 'src/core/interceptors/error.interceptor';
-import { HomeComponent } from './home/home.component';
 import { TopicsComponent } from './topics/topics.component';
 import { WorldComponent } from './world/world.component';
+import { TopicTabComponent } from './topic-tab/topic-tab.component';
 
 @NgModule({
     imports: [
@@ -22,10 +22,10 @@ import { WorldComponent } from './world/world.component';
     ],
     declarations: [
         AppComponent,
-        HomeComponent,
         LoginComponent,
         TopicsComponent,
-        WorldComponent
+        WorldComponent,
+        TopicTabComponent
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

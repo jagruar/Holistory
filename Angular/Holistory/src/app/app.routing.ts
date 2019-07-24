@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { LoginComponent } from './login';
 import { AuthGuard } from 'src/core/guards/auth.guard';
-import { HomeComponent } from './home/home.component';
 import { TopicsComponent } from './topics/topics.component';
 import { WorldComponent } from './world/world.component';
 
@@ -11,11 +10,11 @@ import { WorldComponent } from './world/world.component';
 const appRoutes: Routes = [
     {
         path: '',
-        component: HomeComponent,
+        component: WorldComponent,
         canActivate: [AuthGuard]
     },
     {
-        path: 'topics',
+        path: 'topics/:id',
         component: TopicsComponent,
         canActivate: [AuthGuard]
     },

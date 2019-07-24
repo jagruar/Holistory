@@ -29,6 +29,7 @@ namespace Holistory.Api.Queries
 
         public const string GET_ATTEMPTS_FOR_USER = @"
             SELECT
+                Id,
             	TopicId,
             	DateTaken,
             	Correct,
