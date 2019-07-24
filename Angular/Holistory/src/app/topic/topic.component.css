@@ -1,0 +1,25 @@
+.map-container {
+    height: calc(100vh - 56px);
+    background-color: azure;
+}
+
+.map {
+    max-height: 100%;
+    background-image:  url('../../assets/images/spain.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+
+}
+
+.map-event {
+    fill: red;
+}
+
+.map-event:hover {
+    fill: green;
+}
+
+.event {
+    background-color: chartreuse;
+}

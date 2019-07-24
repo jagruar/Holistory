@@ -25,7 +25,8 @@ namespace Holistory.Api.Queries
             	RegionId,
             	EraId
             FROM Topic
-            WHERE UtcDateDeleted IS NULL";
+            WHERE UtcDateDeleted IS NULL
+            AND (@topicId IS NULL OR Id = @topicId)";
 
         public const string GET_ATTEMPTS_FOR_USER = @"
             SELECT
@@ -37,7 +38,8 @@ namespace Holistory.Api.Queries
             FROM Attempt
             WHERE 
             	UserId = @userId
-            	AND UtcDateDeleted IS NULL";
+            	AND UtcDateDeleted IS NULL
+                AND (@topicId IS NULL OR TopicId = @topicId)";
 
         public const string GET_QUESTIONS_FOR_TOPIC = @"
             SELECT
@@ -89,8 +91,9 @@ namespace Holistory.Api.Queries
         {
             using (IDbConnection connection = _connectionProvider.GetConnection())
             {
-                IEnumerable<TopicDto> topics = await connection.QueryAsync<TopicDto>(GET_TOPICS);
-                IEnumerable<AttemptDto> attempts = await connection.QueryAsync<AttemptDto>(GET_ATTEMPTS_FOR_USER, new { userId });
+                int? topicId = null;
+                IEnumerable<TopicDto> topics = await connection.QueryAsync<TopicDto>(GET_TOPICS, new { topicId });
+                IEnumerable<AttemptDto> attempts = await connection.QueryAsync<AttemptDto>(GET_ATTEMPTS_FOR_USER, new { userId, topicId });
 
                 ILookup<int, AttemptDto> attemptLookup = attempts.ToLookup(x => x.TopicId);
 
@@ -103,16 +106,17 @@ namespace Holistory.Api.Queries
             }
         }
 
-        public async Task<TopicDto> GetByIdAsync(int topicId)
+        public async Task<TopicDto> GetByIdAsync(string userId, int topicId)
         {
             using (IDbConnection connection = _connectionProvider.GetConnection())
             {
-                TopicDto topic = await connection.QueryFirstOrDefaultAsync<TopicDto>(GET_TOPICS);
+                TopicDto topic = await connection.QueryFirstOrDefaultAsync<TopicDto>(GET_TOPICS, new { topicId });
                 NotFoundException.ThrowIfNull(topic, nameof(topic));
 
                 IEnumerable<EventDto> events = await connection.QueryAsync<EventDto>(GET_EVENTS_FOR_TOPIC, new { topicId });
                 IEnumerable<QuestionDto> questions = await connection.QueryAsync<QuestionDto>(GET_QUESTIONS_FOR_TOPIC, new { topicId });
                 IEnumerable<AnswerDto> answers = await connection.QueryAsync<AnswerDto>(GET_ANSWERS_FOR_TOPIC, new { topicId });
+                IEnumerable<AttemptDto> attempts = await connection.QueryAsync<AttemptDto>(GET_ATTEMPTS_FOR_USER, new { userId, topicId });
 
                 ILookup<int, AnswerDto> answerLokup = answers.ToLookup(x => x.QuestionId);
 
@@ -123,6 +127,7 @@ namespace Holistory.Api.Queries
 
                 topic.Events = events;
                 topic.Questions = questions;
+                topic.Attempts = attempts;
 
                 return topic;
             }

@@ -1,6 +1,7 @@
 import { Event } from './event';
 import { Attempt } from './attempt';
 import { Question } from './question';
+import { TopicStatus } from './topic-status';
 
 export class Topic {
     id: number;

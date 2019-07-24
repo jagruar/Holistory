@@ -4,4 +4,7 @@ export class Attempt {
     dateTaken: Date;
     correct: number;
     incorrect: number;
+
+    constructor() {
+    }
 }

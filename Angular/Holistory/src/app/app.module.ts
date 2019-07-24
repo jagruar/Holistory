@@ -9,7 +9,7 @@ import { routing } from './app.routing';
 import { LoginComponent } from './login';
 import { JwtInterceptor } from 'src/core/interceptors/jwt.interceptor';
 import { ErrorInterceptor } from 'src/core/interceptors/error.interceptor';
-import { TopicsComponent } from './topics/topics.component';
+import { TopicComponent } from './topic/topic.component';
 import { WorldComponent } from './world/world.component';
 import { TopicTabComponent } from './topic-tab/topic-tab.component';
 
@@ -23,7 +23,7 @@ import { TopicTabComponent } from './topic-tab/topic-tab.component';
     declarations: [
         AppComponent,
         LoginComponent,
-        TopicsComponent,
+        TopicComponent,
         WorldComponent,
         TopicTabComponent
     ],

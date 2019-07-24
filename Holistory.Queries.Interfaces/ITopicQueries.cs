@@ -14,6 +14,6 @@ namespace Holistory.Api.Queries.Interfaces
         /// <summary>
         /// Retrieves a topic including events and questions
         /// </summary>
-        Task<TopicDto> GetByIdAsync(int topicId);
+        Task<TopicDto> GetByIdAsync(string userId, int topicId);
     }
 }

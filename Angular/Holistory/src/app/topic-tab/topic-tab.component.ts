@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Topic } from 'src/core/models/dtos/topic';
 import { TopicStatus } from 'src/core/models/dtos/topic-status';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'holistory-topic-tab',
@@ -15,29 +16,12 @@ export class TopicTabComponent implements OnInit {
 
   ngOnInit() {    
       console.log("calculating status");
-      if (this.topic.attempts.length = 0) {
+      if (this.topic.attempts.length == 0) {
           this.color = "red";
       } else if (this.topic.attempts.some(x => x.incorrect == 0)) {
         this.color = "green";
       } else {
         this.color = "yellow";
-      }
-  
+      }  
   }
-
-  // public getColor(): string {
-  //   let color = "white";
-  //   console.log(this.topic);
-  //   console.log(this.topic.getStatus());
-  //   switch(this.topic.getStatus()) {
-  //     case(TopicStatus.Completed) :
-  //       color = "green";
-  //     case(TopicStatus.Attempted) :
-  //       color = "yellow";
-  //     case(TopicStatus.NotAttempted) :
-  //     color = "red";
-  //   }
-  //   console.log("get colour returned " + color);
-  //   return color;
-  // }
 }

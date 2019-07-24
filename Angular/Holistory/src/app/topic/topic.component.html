@@ -1,0 +1,23 @@
+<div class="row" *ngIf="topic$ | async as topic">
+  <div class="col-4 event">
+    <p *ngIf="!event">select an event</p>
+    <ng-container *ngIf="event">
+      <h3>{{ event.title }}</h3>
+      <div [innerHTML]="event.content"></div>
+    </ng-container>
+  </div>
+  <div class="col-8 map-container">
+    <svg class="map" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <ng-container *ngFor="let event of topic.events">
+        <circle
+          class="map-event"
+          (click)="selectEvent(event)"
+          [attr.cx]="event.x"
+          [attr.cy]="event.y"
+          r="2"
+          stroke-width="2"
+        />
+      </ng-container>
+    </svg>
+  </div>
+</div>

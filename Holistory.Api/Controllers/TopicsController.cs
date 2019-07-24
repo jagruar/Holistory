@@ -39,7 +39,7 @@ namespace Holistory.Api.Controllers
         [Authorize(Policy = IdentityRoles.User)]
         public async Task<ActionResult<TopicDto>> Get([FromRoute] int id)
         {
-            TopicDto topic = await _topicQueries.GetByIdAsync(id);
+            TopicDto topic = await _topicQueries.GetByIdAsync(_IdentityService.GetCurrentUserId(), id);
             return Ok(topic);
         }
 
