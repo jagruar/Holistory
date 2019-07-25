@@ -1,4 +1,6 @@
-﻿namespace Holistory.Api.DataTranserObjects
+﻿using System;
+
+namespace Holistory.Api.DataTranserObjects
 {
     public class EventDto
     {
@@ -13,6 +15,10 @@
         public int X { get; set; }
 
         public int Y { get; set; }
+
+        public DateTime StartDate { get; set; }
+
+        public DateTime EndDate { get; set; }
 
         public int EventTypeId { get; set; }
     }

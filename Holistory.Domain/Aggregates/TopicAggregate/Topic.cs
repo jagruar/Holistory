@@ -72,19 +72,12 @@ namespace Holistory.Domain.Aggregates.TopicAggregate
             return @event;
         }
 
-        public Question AddQuestion(int? eventId, string text)
+        public Question AddQuestion(List<Answer> answers, int? eventId, string text)
         {
-            Question question = new Question(eventId, text);
+            DataValidationException.ThrowIfTrue(answers.Count(x => x.IsCorrect) != 1, "Only one correct answer allowed");
+            Question question = new Question(answers, eventId, text);
             _questions.Add(question);
             return question;
-        }
-
-        public Answer AddAnswer(int questionId, string text, bool isCorrect)
-        {
-            Question question = _questions.FirstOrDefault(x => x.Id == questionId);
-            NotFoundException.ThrowIfNull(question, nameof(question));
-            Answer answer = question.AddAnswer(text, isCorrect);
-            return answer;
         }
 
         public Attempt AddAttempt(string userId, int correct, int incorrect)

@@ -12,6 +12,9 @@ import { ErrorInterceptor } from 'src/core/interceptors/error.interceptor';
 import { TopicComponent } from './topic/topic.component';
 import { WorldComponent } from './world/world.component';
 import { TopicTabComponent } from './topic-tab/topic-tab.component';
+import { QuizComponent } from './quiz/quiz.component';
+import { ScoresComponent } from './scores/scores.component';
+import { EventComponent } from './event/event.component';
 
 @NgModule({
     imports: [
@@ -25,7 +28,10 @@ import { TopicTabComponent } from './topic-tab/topic-tab.component';
         LoginComponent,
         TopicComponent,
         WorldComponent,
-        TopicTabComponent
+        TopicTabComponent,
+        QuizComponent,
+        ScoresComponent,
+        EventComponent
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

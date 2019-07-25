@@ -63,8 +63,7 @@ namespace Holistory.Api.Queries
             	ON a.QuestionId = q.Id
             WHERE
             	q.TopicId = @topicId
-            	AND q.UtcDateDeleted IS NULL
-            	AND a.UtcDateDeleted IS NULL";
+            	AND q.UtcDateDeleted IS NULL";
 
         public const string GET_EVENTS_FOR_TOPIC = @"
             SELECT
@@ -74,6 +73,8 @@ namespace Holistory.Api.Queries
             	Content,
             	X,
             	Y,
+                StartDate,
+                EndDate,
             	EventTypeId	
             FROM [Event]
             WHERE

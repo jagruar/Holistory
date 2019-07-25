@@ -5,5 +5,7 @@ export class Event {
     content: string;
     x: number;
     y: number;
+    startDate: Date;
+    endDate: Date;
     eventTypeId: number;
 }

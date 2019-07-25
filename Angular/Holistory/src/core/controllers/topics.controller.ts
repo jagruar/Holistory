@@ -8,11 +8,16 @@ import { Attempt } from '../models/dtos/attempt';
 import { LoggingService } from '../services/logging.service';
 import { CreateAttemptCommand } from '../models/commands/createAttempt.command';
 import { AuthenticationService } from '../services/authentication.service';
+import { Question } from '../models/dtos/question';
+import { Event } from '../models/dtos/event';
 
 @Injectable({ providedIn: 'root' })
 export class TopicsController {
     private topics = new BehaviorSubject<Topic[]>(null);
     private topics$ = this.topics.asObservable();
+
+    private topic = new BehaviorSubject<Topic>(null);
+    private topic$ = this.topic.asObservable();
 
     constructor(
         private http: HttpClient,
@@ -21,7 +26,6 @@ export class TopicsController {
     }
 
     public getTopics(): Observable<Topic[]> {
-        console.log(this.topics);
         if (this.topics.value) {
             this.logger.log("topics exists");
             return this.topics$;
@@ -37,7 +41,30 @@ export class TopicsController {
     }
 
     public getTopic(id: number): Observable<Topic> {
-        return this.http.get<Topic>(`${environment.apiUrl}/topics/${id}`);
+        if (this.topic.value) {
+            this.logger.log("topic exists");
+            return this.topic$;
+        } else {
+            this.logger.log("making call for topic " + id);
+            return this.http.get<Topic>(`${environment.apiUrl}/topics/${id}`)
+                .pipe(map(x => {
+                    this.logger.log("succesfuly got topic " + id);
+                    this.topic.next(x);
+                    return x;   
+                }));            
+        }
+    }
+
+    public getAttempts(topicId: number): Observable<Attempt[]> {
+        return this.getTopic(topicId).pipe(map(x => x.attempts));
+    }
+
+    public getQuestions(topicId: number): Observable<Question[]> {
+        return this.getTopic(topicId).pipe(map(x => x.questions));
+    }
+
+    public getEvent(topicId: number, eventId: number): Observable<Event> {
+        return this.getTopic(topicId).pipe(map(x => x.events.find(y => y.id == eventId)));
     }
 
     public postAttempt(topicId: number, correct: number, incorrect: number) {

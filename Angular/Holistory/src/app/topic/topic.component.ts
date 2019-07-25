@@ -21,8 +21,9 @@ export class TopicComponent implements OnInit {
 
   ngOnInit() {
     this.topic$ = this.route.paramMap.pipe(
-      switchMap((params: ParamMap) =>
-        this.topicsController.getTopic(+params.get('id')))
+      switchMap((params: ParamMap) => {
+        return this.topicsController.getTopic(+params.get('topicId'));
+      })        
     );
   }
 

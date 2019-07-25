@@ -1,7 +1,5 @@
 ﻿using Holistory.Domain.Seedwork;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Holistory.Domain.Aggregates.TopicAggregate
 {
@@ -13,8 +11,9 @@ namespace Holistory.Domain.Aggregates.TopicAggregate
         {
         }
 
-        public Question(int? eventId, string text)
+        public Question(List<Answer> answers, int? eventId, string text)
         {
+            _answers = answers;
             EventId = eventId;
             Text = text;
         }
@@ -26,12 +25,5 @@ namespace Holistory.Domain.Aggregates.TopicAggregate
         public string Text { get; private set; }
 
         public IReadOnlyCollection<Answer> Answers => _answers;
-
-        public Answer AddAnswer(string text, bool isCorrect)
-        {
-            Answer answer = new Answer(text, isCorrect);
-            _answers.Add(answer);
-            return answer;
-        }
     }
 }

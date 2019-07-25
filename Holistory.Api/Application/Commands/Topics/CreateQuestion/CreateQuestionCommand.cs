@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace Holistory.Api.Application.Commands.Topics.CreateQuestion
@@ -14,5 +15,8 @@ namespace Holistory.Api.Application.Commands.Topics.CreateQuestion
 
         [DataMember]
         public string Text { get; private set; }
+
+        [DataMember]
+        public IEnumerable<CreateAnswer> Answers { get; private set; }
     }
 }

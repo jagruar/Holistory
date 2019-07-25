@@ -1,6 +1,7 @@
 ﻿using Holistory.Common.Exceptions;
 using Holistory.Domain.Aggregates.TopicAggregate;
 using MediatR;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -21,7 +22,10 @@ namespace Holistory.Api.Application.Commands.Topics.CreateQuestion
 
             NotFoundException.ThrowIfNull(topic, nameof(topic));
 
-            Question question = topic.AddQuestion(request.EventId, request.Text);
+            Question question = topic.AddQuestion(
+                request.Answers.Select(x => new Answer(x.Text, x.IsCorrect.Value)).ToList(),
+                request.EventId,
+                request.Text);
 
             await _topicRepository.UnitOfWork.SaveEntitiesAsync();
 

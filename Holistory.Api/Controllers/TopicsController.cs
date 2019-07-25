@@ -1,5 +1,4 @@
 ﻿using Holistory.Api.Application.Commands.Topics.CreateAttempt;
-using Holistory.Api.Application.Commands.Topics.CreateAnswer;
 using Holistory.Api.Application.Commands.Topics.CreateEvent;
 using Holistory.Api.Application.Commands.Topics.CreateQuestion;
 using Holistory.Api.Application.Commands.Topics.CreateTopic;
@@ -69,19 +68,6 @@ namespace Holistory.Api.Controllers
         public async Task<ActionResult<int>> PostEvent([FromRoute] int id, [FromBody] CreateEventCommand command)
         {
             if (id != command.TopicId)
-            {
-                return BadRequestNonMatchingIds();
-            }
-
-            int result = await _Mediator.Send(command);
-            return Ok(new { result });
-        }
-
-        [HttpPost("{topicId}/questions/{questionId}/answers")]
-        [Authorize(Policy = IdentityRoles.Admin)]
-        public async Task<ActionResult<int>> PostAnswer([FromRoute] int topicId, [FromRoute] int questionId, [FromBody] CreateAnswerCommand command)
-        {
-            if (topicId != command.TopicId || questionId != command.QuestionId)
             {
                 return BadRequestNonMatchingIds();
             }

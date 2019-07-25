@@ -1,0 +1,10 @@
+<ng-container *ngIf="event$ | async as event">
+  <h3>{{ event.title }}</h3>
+  <h5>
+    {{
+      (event.startDate | date: "longDate") +
+        (event.endDate ? " - " + (event.startDate | date: "longDate") : "")
+    }}
+  </h5>
+  <div [innerHTML]="event.content"></div>
+</ng-container>

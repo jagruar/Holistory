@@ -20,13 +20,6 @@ namespace Holistory.Api.Controllers
         {
         }
 
-        [HttpGet]
-        public async Task<ActionResult<string>> GetId()
-        {
-            string id =  _IdentityService.GetCurrentUserId();
-            return Ok(new { id });
-        }
-
         [HttpPost("token")]
         [AllowAnonymous]
         public async Task<ActionResult<IdentificationDto>> Token([FromBody] GenerateAuthTokenCommand command)

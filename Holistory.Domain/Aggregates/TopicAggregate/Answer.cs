@@ -2,7 +2,7 @@
 
 namespace Holistory.Domain.Aggregates.TopicAggregate
 {
-    public class Answer : Entity
+    public class Answer
     {
         private Answer()
         {
@@ -13,6 +13,8 @@ namespace Holistory.Domain.Aggregates.TopicAggregate
             Text = text;
             IsCorrect = isCorrect;
         }
+
+        public int Id { get; private set; }
 
         public int QuestionId { get; private set; }
 
