@@ -1,0 +1,11 @@
+<svg class="map" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <circle
+    *ngFor="let event of events"
+    class="map-event"
+    (click)="selectEvent(event)"
+    [attr.cx]="event.x"
+    [attr.cy]="event.y"
+    r="2"
+    stroke-width="0"
+  />
+</svg>

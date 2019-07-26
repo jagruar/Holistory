@@ -1,4 +1,4 @@
-<ng-container *ngIf="event$ | async as event">
+<ng-container *ngIf="event">
   <h3>{{ event.title }}</h3>
   <h5>
     {{
@@ -7,4 +7,7 @@
     }}
   </h5>
   <div [innerHTML]="event.content"></div>
+</ng-container>
+<ng-container *ngIf="!event">
+  <h3>Select An Event</h3>
 </ng-container>

@@ -1,9 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Event } from 'src/core/models/dtos/event';
-import { TopicsController } from 'src/core/controllers/topics.controller';
-import { Observable } from 'rxjs';
-import { ActivatedRoute, ParamMap } from '@angular/router';
-import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'holistory-event',
@@ -11,16 +7,11 @@ import { switchMap } from 'rxjs/operators';
   styleUrls: ['./event.component.css']
 })
 export class EventComponent implements OnInit {
-  public event$: Observable<Event>;
+  @Input() event: Event;
 
-  constructor(
-    private topicsController: TopicsController,
-    private route: ActivatedRoute) { }
+  constructor() { }
 
   ngOnInit() {
-    this.event$ = this.route.paramMap.pipe(
-      switchMap((params: ParamMap) =>
-        this.topicsController.getEvent(+params.get('topicId'), +params.get('eventId'))));
   }
 
 }

@@ -5,6 +5,7 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Event } from 'src/core/models/dtos/event';
+import { LoggingService } from 'src/core/services/logging.service';
 
 @Component({
   selector: 'holistory-topic',
@@ -14,10 +15,13 @@ import { Event } from 'src/core/models/dtos/event';
 export class TopicComponent implements OnInit {
   public topic$: Observable<Topic>
   public event: Event;
+  public quizActive: boolean;
+  numbers = Array<number>(100).fill(1).map((x,i)=>i);
 
   constructor(
     private topicsController: TopicsController,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private logger: LoggingService) { }
 
   ngOnInit() {
     this.topic$ = this.route.paramMap.pipe(
@@ -25,6 +29,7 @@ export class TopicComponent implements OnInit {
         return this.topicsController.getTopic(+params.get('topicId'));
       })        
     );
+    console.log(this.numbers);
   }
 
   public addAttempt() {
@@ -32,6 +37,11 @@ export class TopicComponent implements OnInit {
   }
 
   public selectEvent(event: Event) {
+    this.logger.log("selecting event " + event.id);
     this.event = event;
+  }
+
+  public startQuiz() {
+    this.quizActive = true;
   }
 }

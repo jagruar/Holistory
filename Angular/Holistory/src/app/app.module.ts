@@ -13,8 +13,9 @@ import { TopicComponent } from './topic/topic.component';
 import { WorldComponent } from './world/world.component';
 import { TopicTabComponent } from './topic-tab/topic-tab.component';
 import { QuizComponent } from './quiz/quiz.component';
-import { ScoresComponent } from './scores/scores.component';
 import { EventComponent } from './event/event.component';
+import { MapComponent } from './map/map.component';
+import { QuizMapComponent } from './quiz-map/quiz-map.component';
 
 @NgModule({
     imports: [
@@ -30,8 +31,9 @@ import { EventComponent } from './event/event.component';
         WorldComponent,
         TopicTabComponent,
         QuizComponent,
-        ScoresComponent,
-        EventComponent
+        EventComponent,
+        MapComponent,
+        QuizMapComponent
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

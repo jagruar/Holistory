@@ -1,27 +1,8 @@
 <div class="row" *ngIf="topic$ | async as topic">
-  <div class="col-4 event">
-    <div class="row">
-      <span [routerLink]="['/topics/' + topic.id + '/scores']" class="col-6"
-        >Scores</span
-      >
-      <span [routerLink]="['/topics/' + topic.id + '/quiz']" class="col-6"
-        >Take Quiz!</span
-      >
-    </div>
-    <router-outlet></router-outlet>
-  </div>
-  <div class="col-8 map-container">
-    <svg class="map" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-      <ng-container *ngFor="let event of topic.events">
-        <circle
-          class="map-event"
-          [routerLink]="['/topics/' + topic.id + '/events/' + event.id]"
-          [attr.cx]="event.x"
-          [attr.cy]="event.y"
-          r="2"
-          stroke-width="2"
-        />
-      </ng-container>
-    </svg>
-  </div>
+  <holistory-event class="col-4" [event]="event"></holistory-event>
+  <holistory-map
+    class="col-8 map-container"
+    [events]="topic.events"
+    (eventSelected)="selectEvent($event)"
+  ></holistory-map>
 </div>

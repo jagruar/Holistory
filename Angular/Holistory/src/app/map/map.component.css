@@ -1,0 +1,7 @@
+.map-event {
+    fill: red;
+}
+
+.map-event:hover {
+    fill: green;
+}

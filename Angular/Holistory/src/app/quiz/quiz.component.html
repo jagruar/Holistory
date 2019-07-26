@@ -1,5 +1,18 @@
-<ng-container *ngIf="questions$ | async as questions">
-  <p *ngFor="let question of questions">
-    {{ question.text }}
-  </p>
-</ng-container>
+<div class="row" *ngIf="topic$ | async as topic">
+  <div class="col-4">
+    <div
+      class="row"
+      (click)="setActiveEvent(quizEvent)"
+      *ngFor="let quizEvent of quizEvents"
+    >
+      <div class="col-4">{{ quizEvent.event.title }}</div>
+      <div class="col-4">{{ quizEvent.order }}</div>
+      <div class="col-2">{{ quizEvent.ordered ? "true" : "false" }}</div>
+      <div class="col-2">{{ quizEvent.located ? "true" : "false" }}</div>
+    </div>
+  </div>
+  <holistory-quiz-map
+    class="col-8 map-container"
+    (gridClicked)="checkAnswer($event)"
+  ></holistory-quiz-map>
+</div>

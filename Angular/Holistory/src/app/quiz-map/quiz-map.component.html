@@ -1,0 +1,13 @@
+<svg class="map" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <ng-container *ngFor="let i of numbers">
+    <rect
+      (click)="sendGridClicked(i, j)"
+      *ngFor="let j of numbers"
+      [attr.x]="i"
+      [attr.y]="j"
+      width="1"
+      height="1"
+      fill-opacity="0"
+    ></rect>
+  </ng-container>
+</svg>
